@@ -6,7 +6,7 @@
 <!--[![PyPI - Downloads](https://img.shields.io/pypi/dm/git-bob)](https://pypistats.org/packages/git-bob)-->
 
 git-bob uses AI to solve GitHub issues. It runs inside the GitHub CI, no need to install anything on your computer.
-Read more in the [preprint](https://doi.org/10.5281/zenodo.13928832). 
+Read more in the [publication](https://www.nature.com/articles/s43588-025-00781-1). 
 
 ![banner](https://github.com/haesleinhuepf/git-bob/raw/main/docs/images/banner2.png)
 
@@ -36,14 +36,15 @@ There is a detailed [tutorial](https://github.com/haesleinhuepf/git-bob/blob/mai
 * Copy the [git-bob](https://github.com/haesleinhuepf/git-bob/blob/main/.github/workflows/git-bob.yml) GitHub workflow in folder `.github/workflows/` to your repository.
   * Make sure to replace `pip install -e .` with a specific git-bob version such as `pip install git-bob==0.16.0`.
   * If your project does not contain a `requirements.txt` file, remove the line `pip install -r requirements.txt`.
-  * Configure the LLM you want to use in the workflow files by specifying the `GIT_BOB_LLM_NAME` environment variable. These were tested:
+  * Configure the LLM you want to use in the workflow files by specifying the `GIT_BOB_LLM_NAME` GitHub repository secret. These were tested:
     * `anthropic:claude-3-5-sonnet-20241022`
     * `openai:gpt-4o-2024-08-06`
     * `github_models:gpt-4o`
     * `github_models:meta-llama-3.1-405b-instruct`
     * `google:gemini-1.5-pro-002`
     * `mistral:mistral-large-2411` (uses `pixtral-12b-2409` for vision tasks)
-    * `mistral:deepseek-chat`
+    * `deepseek:deepseek-chat`
+    * `e-infra_cz:llama3.3:latest`
   * configure a GitHub secret with the corresponding key from the LLM provider depending on the above configured LLM:
     * `OPENAI_API_KEY`: [OpenAI (gpt)](https://openai.com/blog/openai-api)
     * `ANTHROPIC_API_KEY`: [Anthropic (claude)](https://www.anthropic.com/api)
@@ -53,6 +54,7 @@ There is a detailed [tutorial](https://github.com/haesleinhuepf/git-bob/blob/mai
     * `DEEPSEEK_API_KEY`: [DeepSeek](https://platform.deepseek.com/api_keys)
     * `KISSKI_API_KEY`: [KISSKI](https://services.kisski.de/services/en/service/?service=2-02-llm-service.json)
     * `BLABLADOR_API_KEY`: [BLABLADOR](https://login.helmholtz.de/oauth2-as/oauth2-authz-web-entry)
+    * `E_INFRA_CZ_API_KEY` [chat.ai.e-infra.cz docs](https://docs.cerit.io/en/docs/web-apps/chat-ai)
   * configure GitHub actions to run the workflow on issues and pull requests. Also give write-access to the Workflow using the `GITHUB_TOKEN`.
 
 When using it in your repository, you can also set a custom system message, for example for:
@@ -133,6 +135,19 @@ Here's the recommended workflow for using git-bob:
 7. Wait for git-bob to create new PR or modifying the existing PR with the requested changes.
 8. Repeat steps 3-5 as necessary until the issue is resolved satisfactorily.
 
+## Supported file formats
+
+Git-bob can interact with a variety of file formats.
+* Jupyter Notebooks (.ipynb), can also be executed
+* Text and code files (.txt, .tex, .py, .csv, ...)
+* Markdown files (.md)
+* Markup files (.yml, .yaml, .xml)
+* Word Document files (.docx)
+* PowerPoint files (.pptx, write-only)
+* Audio files (.mp3, write-only, OPENAI_API_KEY required)
+* SVG files (.svg)
+* images files (.png, .jpg, ..., for reading images, a vision-capable LLM must be chosen, for creating images DALL-E is used, OPENAI_API_KEY required)
+
 ## Use-case examples
 
 A huge variety of use-cases for git-bob are thinkable. Here are some examples. Many serve purely demonstrative purposes. 
@@ -157,6 +172,9 @@ Some were parts of real scientific data analysis projects.
   * [Summarize code in a repository](https://github.com/haesleinhuepf/git-bob/issues/445)
   * [Programming Google Search](https://github.com/haesleinhuepf/git-bob-playground/issues/193)
   * [Implementing a generic Factory patters](https://github.com/haesleinhuepf/git-bob-playground/issues/198)
+  * [Generating a QR-Code](https://github.com/haesleinhuepf/git-bob-playground/issues/250)
+  * [Caching LLM prompt responses](https://github.com/haesleinhuepf/translate-pptx/issues/3)
+  * [Interactive bash inside a program](https://github.com/haesleinhuepf/git-bob-playground/issues/262)
 * Prompting
   * [Prompting for SVG files](https://github.com/haesleinhuepf/git-bob-playground/issues/184)
 * Continuous Integration and Deployment
@@ -182,6 +200,7 @@ Some were parts of real scientific data analysis projects.
   * [Retrieving meta-data of arxiv articles](https://github.com/haesleinhuepf/git-bob-playground/issues/196)
   * [Counting PowerPoint slides in Zenodo records](https://github.com/NFDI4BIOIMAGE/training/issues/607)
   * [Search for duplicate entries in a yml file](https://github.com/NFDI4BIOIMAGE/training/issues/664)
+  * [Running multiple notebooks and trace failures](https://github.com/haesleinhuepf/git-bob-playground/issues/243)
 * Graphical User Interfaces
   * [Interactive drawing on an ipcanvas](https://github.com/haesleinhuepf/git-bob-playground/issues/121) 
 * Statistics
@@ -190,6 +209,8 @@ Some were parts of real scientific data analysis projects.
   * [Summarizing data and plotting](https://github.com/NFDI4BIOIMAGE/training/issues/250)
   * [Writing text about well-known statistical methods](https://github.com/haesleinhuepf/git-bob-playground/issues/161)
   * [Drawing a decision tree for statistial tests](https://github.com/haesleinhuepf/git-bob-playground/issues/223)
+  * [Converting Dice and Jaccard indices](https://github.com/haesleinhuepf/git-bob-playground/issues/248)
+  * [Generating personal profile data of random scientists](https://github.com/haesleinhuepf/git-bob-playground/issues/249)
 * Plotting
   * [Violing plots with simulated data](https://github.com/haesleinhuepf/git-bob-playground/issues/44)
   * [UMAPs with simulated data](https://github.com/haesleinhuepf/git-bob-playground/issues/41)
@@ -212,9 +233,12 @@ Some were parts of real scientific data analysis projects.
   * [Story Telling for kids](https://github.com/haesleinhuepf/git-bob-playground/issues/82)
   * [PowerPoint Karaoke](https://github.com/haesleinhuepf/git-bob-playground/issues/99)
   * [Solving Advent of Code 2024 puzzles](https://github.com/haesleinhuepf/git-bob-advent-of-code)
-  * [Solving the Halting Problem](https://github.com/haesleinhuepf/git-bob-playground/issues/156) [[2nd attempt](https://github.com/haesleinhuepf/git-bob-playground/issues/157)]
   * [Drawing a Christmas tree as SVG](https://github.com/haesleinhuepf/git-bob-playground/issues/188)
   * [Asking for the Meaning of Life](https://github.com/haesleinhuepf/git-bob-playground/issues/234)
+  * [Creating audio files](https://github.com/haesleinhuepf/git-bob-playground/issues/254) (also in [German](https://github.com/haesleinhuepf/git-bob-playground/issues/258) and [French](https://github.com/haesleinhuepf/git-bob-playground/issues/259))
+* `git-bob` refusing to help
+  * [Changing the working directory of the parent shell](https://github.com/haesleinhuepf/git-bob-playground/issues/266) 
+  * [Solving the Halting Problem](https://github.com/haesleinhuepf/git-bob-playground/issues/156) [[2nd attempt](https://github.com/haesleinhuepf/git-bob-playground/issues/157)]
 * Things that didn't work well
   * [How to use aider from python](https://github.com/haesleinhuepf/git-bob/issues/437#issuecomment-2539865080)
   * [How to use the atproto API](https://github.com/haesleinhuepf/git-bob-playground/issues/136)
@@ -224,6 +248,8 @@ Some were parts of real scientific data analysis projects.
   * [Drawing relationships between agents in a multi-agent system](https://github.com/haesleinhuepf/git-bob-playground/issues/199)
   * [Complex code refactoring](https://github.com/haesleinhuepf/git-bob/issues/451)
   * [Debugging OpenCL error](https://github.com/clEsperanto/pyclesperanto_prototype/issues/344)
+  * [Signing PDFs with visual signature AND cryptographic signing](https://github.com/haesleinhuepf/git-bob-playground/issues/244)
+  * [Extending cell types in Jupyter notebooks](https://github.com/haesleinhuepf/git-bob-playground/issues/270)
 
 ## Installation for development
 
@@ -355,6 +381,7 @@ GIT_BOB_EXTENSIONS_FILTER_REGEXP: "^(?!git_bob).*"
 ## Similar projects
 
 There are similar projects out there
+* [Claide github action](https://github.com/anthropics/claude-code-action/tree/main)
 * [Claude Engineer](https://github.com/Doriandarko/claude-engineer)
 * [BioChatter](https://github.com/biocypher/biochatter)
 * [aider](https://github.com/paul-gauthier/aider)
@@ -380,11 +407,11 @@ If you use git-bob, please cite it:
   author       = {Haase, Robert},
   title        = {{Towards Transparency and Knowledge Exchange in AI- 
                    assisted Data Analysis Code Generation}},
-  month        = oct,
-  year         = 2024,
-  publisher    = {Zenodo},
-  doi          = {10.5281/zenodo.13928832},
-  url          = {https://doi.org/10.5281/zenodo.13928832}
+  month        = mar,
+  year         = 2025,
+  publisher    = {Nature Computational Science},
+  doi          = {10.1038/s43588-025-00781-1},
+  url          = {https://doi.org/10.1038/s43588-025-00781-1}
 }
 ```
 

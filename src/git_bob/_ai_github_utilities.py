@@ -301,6 +301,7 @@ def create_or_modify_file(repository, issue, filename, branch_name, issue_summar
     import docx2markdown
     from ._utilities import read_text_file, write_text_file, write_binary_file, read_binary_file
     from datetime import datetime
+    from ._endpoints import text_to_speech_openai
 
     current_datetime = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
@@ -309,12 +310,24 @@ def create_or_modify_file(repository, issue, filename, branch_name, issue_summar
     if is_ignored(filename, repository, branch_name):
         raise ValueError(f"Access to {filename} is restricted by .gitbobignore")
 
+    more_instructions = ""
     created_files = {}
     for attempt in range(number_of_attempts):
         an_error_happened = False
 
         created_files = {}
         original_ipynb_file_content = None
+        temp = filename.split("/")
+        working_directory = "/".join(temp[:-1])
+        if len(working_directory) > 0:
+            working_directory = working_directory + "/"
+
+        all_files = """
+## Other files in the repository
+
+You are in working directory {working_directory}. When you are writing code that accesses other files, make sure to use the correct relative file-paths.
+These are all files in the repository:
+""" + "* " + "\n* ".join(Config.git_utilities.list_repository_files(repository, branch_name=branch_name))
 
         format_specific_instructions = ""
         if any([filename.endswith(f) for f in image_file_endings]):
@@ -322,10 +335,14 @@ def create_or_modify_file(repository, issue, filename, branch_name, issue_summar
             return created_files
         elif filename.endswith('.py'):
             format_specific_instructions = " When writing new functions, use numpy-style docstrings."
-        elif filename.endswith('.ipynb'):
+            more_instructions = all_files
+        if filename.endswith('.ipynb'):
             format_specific_instructions = " In the notebook file, write short code snippets in code cells and avoid long code blocks. Make sure everything is done step-by-step and we can inspect intermediate results. Add explanatory markdown cells in front of every code cell. The notebook has NO cell outputs! Make sure that there is code that saves results such as plots, images or dataframes, e.g. as .png or .csv files. Numpy images have to be converted to np.uint8 before saving as .png. Plots must be saved to disk before the cell ends or it is shown. The notebook must be executable from top to bottom without errors. Return the notebook in JSON format!"
+            more_instructions = all_files
         elif filename.endswith('.docx'):
             format_specific_instructions = " Write the document in simple markdown format."
+        elif filename.endswith('.mp3'):
+            format_specific_instructions = " Do not attempt to create an audio file. Write down the content of it instead only. Do not explain what you're doing, or what your capabilities are. In fact, the content you create here, will be converted to mp3 afterwards."
         elif filename.endswith('.pptx'):
             format_specific_instructions = """
 The file should be a presentation with slides, formatted as a JSON list containing dictionaries with a 'title' and a 'content' list with up to 2 strings.
@@ -367,6 +384,7 @@ Example 5: {"title":"Summary", "content":["In this slide-deck we learned about\n
 Modify the file "{filename}" to solve the issue #{issue}. {format_specific_instructions}
 If the discussion is long, some stuff might be already done. In that case, focus on what was said at the very end in the discussion.
 Keep your modifications absolutely minimal.
+{more_instructions}
 
 That's the file "{filename}" content you will find in the file:
 ```
@@ -376,12 +394,22 @@ That's the file "{filename}" content you will find in the file:
 ## Your task
 Modify content of the file "{filename}" to solve the issue above.
 Keep your modifications absolutely minimal.
-Return the entire new file content, do not shorten it.
+If the modifications are long, return the entire new file content, do not shorten it.
+If the modification is short, return the original part you would like to replace and the new part you would like to replace it with. 
+Do this in this format:
+
+<original_part>
+Original (unmodified) part of the file content you would like to replace.
+</original_part>
+<new_part>
+New (modified) part of the file content you would like to replace it with.
+</new_part>
 """
         else:
             print(filename, "will be created")
             file_content_instruction = f"""
 Create the file "{filename}" to solve the issue #{issue}. {format_specific_instructions}
+{more_instructions}
 
 ## Your task
 Generate content for the file "{filename}" to solve the issue above.
@@ -403,10 +431,19 @@ Given a github issue summary (#{issue}) and optionally file content (filename {f
 
 Respond ONLY the content of the file and afterwards a single line summarizing the changes you made (without mentioning the issue).
 """
+        print("Prompt:", prompt)
+
         print("Prompting for new file content...")
+        
         response = prompt_function(prompt)
 
         new_content, commit_message = split_content_and_summary(response)
+
+        if "<original_part>" in new_content and "<new_part>" in new_content:
+            for part in new_content.split("</new_part>")[:-1]:
+                original_part = part.split("<original_part>")[1].split("</original_part>")[0]
+                new_part = part.split("<new_part>")[1]
+                new_content = file_content.replace(original_part, new_part)
 
         print("New file content", len(new_content), "\n------------\n", new_content[:200], "\n------------")
 
@@ -433,11 +470,13 @@ Respond ONLY the content of the file and afterwards a single line summarizing th
             new_content = read_binary_file(filename)
             # delete temporary markdown file
             os.remove(filename + current_datetime + ".md")
+        elif filename.endswith('.mp3'):
+            text_to_speech_openai(new_content, filename)
+            new_content = read_binary_file(filename)
         elif filename.endswith('.pptx'):
             from ._utilities import make_slides
             make_slides(new_content, filename)
             new_content = read_binary_file(filename)
-
         if do_execute_notebook:
             print("Executing the notebook", len(new_content))
             current_dir = os.getcwd()
@@ -586,6 +625,7 @@ Decide which of these files need to be modified, created, downloaded, renamed, c
 Downloads are necessary, if there is a url in the discussion and the linked file is needed in the proposed code.
 Paintings should only be done if the user explicitly asks to "paint" a picture or "draw" a comic.
 Do NOT create new paintings if you already created them during the discussion.
+You can create audio files in mp3 format.
 If the user asks for executing a notebook, consider this as modification.
 Keep the list of actions minimal.
 Response format:
