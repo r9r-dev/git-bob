@@ -1,13 +1,13 @@
 # Installation in git-lab
 
-Since version 0.10.1 git-bob has experimental support for [gitlab](https://gitlab.com).
-Feedback about the instructions provided here are very [welcome](https://github.com/haesleinhuepf/git-bob/issues/new)!
+Since version 0.10.1 git-bob has experimental support for [gitlab](https://gitlab.hellowork-group.com/).
+Feedback about the instructions provided here are very [welcome](https://github.com/r9r-dev/git-bob/issues/new)!
 
-For demonstration purposes, a [playground repository on gitlab.com](https://gitlab.com/haesleinhuepf/git-bob-gitlab-playground) has been set up as demonstrated in the following.
+For demonstration purposes, a [playground repository on gitlab.com](https://gitlab.hellowork-group.com/r9r-dev/git-bob-gitlab-playground) has been set up as demonstrated in the following.
 
 ## Create a new repository
 
-* Create a new repository in your gitlab instance or on [https://gitlab.com](https://gitlab.com). 
+* Create a new repository in your gitlab instance or on [https://gitlab.hellowork-group.com/](https://gitlab.hellowork-group.com/). 
 * Add the [.gitlab-ci.yml](../.gitlab/.gitlab-ci.yml) to the root folder of your repository. 
   In this file, make the following modifications:
   * If you are working with an own gitlab instance, modify the variable `GIT_SERVER_URL`. Enter the url of your server and finish with "/".
@@ -56,7 +56,7 @@ Go to Project settings > Webhooks and create a new webhook.
 
 As URL specify the following. Replace PROJECT_ID by your project's ID (a long number) and the TOKEN by the pipeline token you received above.
 ```
-https://gitlab.com/api/v4/projects/PROJECT_ID/ref/main/trigger/pipeline?token=TOKEN&variables[CI_PIPELINE_TRIGGER_SOURCE]=issue
+https://gitlab.hellowork-group.com/api/v4/projects/PROJECT_ID/ref/main/trigger/pipeline?token=TOKEN&variables[CI_PIPELINE_TRIGGER_SOURCE]=issue
 ```
 
 Then, configure masks to hide the token again, e.g. like this:
@@ -73,7 +73,7 @@ In the list of web hooks it should then look like this:
 
 ## Testing the installation
 
-Go to your repository and create a new issue ([example](https://gitlab.com/haesleinhuepf/git-bob-gitlab-playground/-/issues/2)). E.g. write a request like this and use a trigger word for git-bob:
+Go to your repository and create a new issue ([example](https://gitlab.hellowork-group.com/r9r-dev/git-bob-gitlab-playground/-/issues/2)). E.g. write a request like this and use a trigger word for git-bob:
 ```
 What is the capital of Germany?
 

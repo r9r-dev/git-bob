@@ -1,18 +1,18 @@
 # git-bob ![](logo_32x32.png)
 [![PyPI](https://img.shields.io/pypi/v/git-bob.svg?color=green)](https://pypi.org/project/git-bob)
-[![codecov](https://codecov.io/gh/haesleinhuepf/git-bob/branch/main/graph/badge.svg)](https://codecov.io/gh/haesleinhuepf/git-bob)
+[![codecov](https://codecov.io/gh/r9r-dev/git-bob/branch/main/graph/badge.svg)](https://codecov.io/gh/r9r-dev/git-bob)
 [![DOI](https://zenodo.org/badge/831841421.svg)](https://doi.org/10.5281/zenodo.13970719)
-[![License](https://img.shields.io/pypi/l/git-bob.svg?color=green)](https://github.com/haesleinhuepf/git-bob/raw/main/LICENSE)
+[![License](https://img.shields.io/pypi/l/git-bob.svg?color=green)](https://github.com/r9r-dev/git-bob/raw/main/LICENSE)
 <!--[![PyPI - Downloads](https://img.shields.io/pypi/dm/git-bob)](https://pypistats.org/packages/git-bob)-->
 
 git-bob uses AI to solve GitHub issues. It runs inside the GitHub CI, no need to install anything on your computer.
 Read more in the [publication](https://www.nature.com/articles/s43588-025-00781-1). 
 
-![banner](https://github.com/haesleinhuepf/git-bob/raw/main/docs/images/banner2.png)
+![banner](https://github.com/r9r-dev/git-bob/raw/main/docs/images/banner2.png)
 
 Under the hood it uses [Anthropic's Claude](https://www.anthropic.com/api) or [OpenAI's chatGPT](https://openai.com/blog/openai-api) or [Google's Gemini](https://blog.google/technology/ai/google-gemini-ai/) to understand the text and 
 [pygithub](https://github.com/PyGithub/PyGithub) to interact with the issues and pull requests. As its discussions are conserved, you can document how things were done using AI and 
-others can learn how to prompt for the things you did. For example, the pair-plot discussion above is [available online](https://github.com/haesleinhuepf/git-bob-playground/issues/48).
+others can learn how to prompt for the things you did. For example, the pair-plot discussion above is [available online](https://github.com/r9r-dev/git-bob-playground/issues/48).
 
 ## Disclaimer
 
@@ -32,8 +32,8 @@ Do not use this technology if you are not aware of the costs and consequences.
 
 ## Installation as GitHub action
 
-There is a detailed [tutorial](https://github.com/haesleinhuepf/git-bob/blob/main/docs/installation-tutorial.md) on how to install git-bob as GitHub action to your repository. In very short, to use git-bob in your GitHub repository, you need to 
-* Copy the [git-bob](https://github.com/haesleinhuepf/git-bob/blob/main/.github/workflows/git-bob.yml) GitHub workflow in folder `.github/workflows/` to your repository.
+There is a detailed [tutorial](https://github.com/r9r-dev/git-bob/blob/main/docs/installation-tutorial.md) on how to install git-bob as GitHub action to your repository. In very short, to use git-bob in your GitHub repository, you need to 
+* Copy the [git-bob](https://github.com/r9r-dev/git-bob/blob/main/.github/workflows/git-bob.yml) GitHub workflow in folder `.github/workflows/` to your repository.
   * Make sure to replace `pip install -e .` with a specific git-bob version such as `pip install git-bob==0.16.0`.
   * If your project does not contain a `requirements.txt` file, remove the line `pip install -r requirements.txt`.
   * Configure the LLM you want to use in the workflow files by specifying the `GIT_BOB_LLM_NAME` GitHub repository secret. These were tested:
@@ -58,19 +58,19 @@ There is a detailed [tutorial](https://github.com/haesleinhuepf/git-bob/blob/mai
   * configure GitHub actions to run the workflow on issues and pull requests. Also give write-access to the Workflow using the `GITHUB_TOKEN`.
 
 When using it in your repository, you can also set a custom system message, for example for:
-* [General Data Science / Python Programming](https://github.com/haesleinhuepf/git-bob-playground/blob/bf08b3526980e011f632c13f29ae65372aafa5c7/.github/workflows/git-bob.yml#L75)
-* [Bio-Image Analysis](https://github.com/haesleinhuepf/git-bob-bioimage-analysis-example/blob/main/.github/workflows/git-bob.yml#L75)
-* [Giving advice on a specific repository / library](https://github.com/haesleinhuepf/stackview/blob/afc662a71a39f298af9f183c06c3d37c95cc2015/.github/workflows/git-bob.yml#L58)
-* [Manuscript writing](https://github.com/haesleinhuepf/git-bob-manuscript/blob/49659f8a41854d4da696259e7c1316af2fc7c171/.github/workflows/comment-on-issue.yml#L49)
+* [General Data Science / Python Programming](https://github.com/r9r-dev/git-bob-playground/blob/bf08b3526980e011f632c13f29ae65372aafa5c7/.github/workflows/git-bob.yml#L75)
+* [Bio-Image Analysis](https://github.com/r9r-dev/git-bob-bioimage-analysis-example/blob/main/.github/workflows/git-bob.yml#L75)
+* [Giving advice on a specific repository / library](https://github.com/r9r-dev/stackview/blob/afc662a71a39f298af9f183c06c3d37c95cc2015/.github/workflows/git-bob.yml#L58)
+* [Manuscript writing](https://github.com/r9r-dev/git-bob-manuscript/blob/49659f8a41854d4da696259e7c1316af2fc7c171/.github/workflows/comment-on-issue.yml#L49)
 
 Furthermore, to guide discussions, you may want to setup issue templates, e.g.
-* [General Python Programming Questions](https://github.com/haesleinhuepf/git-bob-playground/blob/main/.github/ISSUE_TEMPLATE/programming.md)
-* [Bio-Image Analysis](https://github.com/haesleinhuepf/git-bob-playground/blob/main/.github/ISSUE_TEMPLATE/bioimage_analysis.md)
-* [Statistics and Plotting](https://github.com/haesleinhuepf/git-bob-playground/blob/main/.github/ISSUE_TEMPLATE/statistics_plotting.md)
+* [General Python Programming Questions](https://github.com/r9r-dev/git-bob-playground/blob/main/.github/ISSUE_TEMPLATE/programming.md)
+* [Bio-Image Analysis](https://github.com/r9r-dev/git-bob-playground/blob/main/.github/ISSUE_TEMPLATE/bioimage_analysis.md)
+* [Statistics and Plotting](https://github.com/r9r-dev/git-bob-playground/blob/main/.github/ISSUE_TEMPLATE/statistics_plotting.md)
 
 ## Installation as gitlab pipeline
 
-Since version 0.10.1 git-bob has experimental support for [gitlab](https://gitlab.com). You find detailed instructions how to install it [here](https://github.com/haesleinhuepf/git-bob/blob/main/docs/installation-tutorial-gitlab.md).
+Since version 0.10.1 git-bob has experimental support for [gitlab](https://gitlab.hellowork-group.com/). You find detailed instructions how to install it [here](https://github.com/r9r-dev/git-bob/blob/main/docs/installation-tutorial-gitlab.md).
 
 ## Usage: Trigger words
 
@@ -154,107 +154,107 @@ A huge variety of use-cases for git-bob are thinkable. Here are some examples. M
 Some were parts of real scientific data analysis projects.
 
 * Question answering 
-  * [About specific Python libraries](https://github.com/haesleinhuepf/stackview/issues/79)
-  * [The capital of France](https://github.com/haesleinhuepf/git-bob-playground/issues/24)
-  * [Asking for git-bob's capabilities](https://github.com/haesleinhuepf/git-bob-playground/issues/232)
+  * [About specific Python libraries](https://github.com/r9r-dev/stackview/issues/79)
+  * [The capital of France](https://github.com/r9r-dev/git-bob-playground/issues/24)
+  * [Asking for git-bob's capabilities](https://github.com/r9r-dev/git-bob-playground/issues/232)
 * Translation
-  * [Translating text in Jupyter notebooks in other Languages](https://github.com/haesleinhuepf/git-bob-playground/issues/118) 
-  * [Translating PowerPoint files](https://github.com/haesleinhuepf/git-bob-playground/issues/239)
+  * [Translating text in Jupyter notebooks in other Languages](https://github.com/r9r-dev/git-bob-playground/issues/118) 
+  * [Translating PowerPoint files](https://github.com/r9r-dev/git-bob-playground/issues/239)
 * Image Analysis
-  * [Nuclei segmentation](https://github.com/haesleinhuepf/git-bob-playground/issues/13)
-  * [Cell segmentation](https://github.com/haesleinhuepf/git-bob-playground/issues/42)
+  * [Nuclei segmentation](https://github.com/r9r-dev/git-bob-playground/issues/13)
+  * [Cell segmentation](https://github.com/r9r-dev/git-bob-playground/issues/42)
   * [Resizing images](https://github.com/NFDI4BIOIMAGE/training/issues/356)
-  * [Natural image classification](https://github.com/haesleinhuepf/git-bob-playground/issues/241)
+  * [Natural image classification](https://github.com/r9r-dev/git-bob-playground/issues/241)
 * Programming
   * [Caching](https://github.com/NFDI4BIOIMAGE/SlideInsight/issues/28)
-  * [Fixing bugs in notebooks](https://github.com/haesleinhuepf/git-bob-playground/issues/174)
-  * [Summarize code of a file](https://github.com/haesleinhuepf/git-bob-playground/issues/178)
-  * [Summarize code in a repository](https://github.com/haesleinhuepf/git-bob/issues/445)
-  * [Programming Google Search](https://github.com/haesleinhuepf/git-bob-playground/issues/193)
-  * [Implementing a generic Factory patters](https://github.com/haesleinhuepf/git-bob-playground/issues/198)
-  * [Generating a QR-Code](https://github.com/haesleinhuepf/git-bob-playground/issues/250)
-  * [Caching LLM prompt responses](https://github.com/haesleinhuepf/translate-pptx/issues/3)
-  * [Interactive bash inside a program](https://github.com/haesleinhuepf/git-bob-playground/issues/262)
+  * [Fixing bugs in notebooks](https://github.com/r9r-dev/git-bob-playground/issues/174)
+  * [Summarize code of a file](https://github.com/r9r-dev/git-bob-playground/issues/178)
+  * [Summarize code in a repository](https://github.com/r9r-dev/git-bob/issues/445)
+  * [Programming Google Search](https://github.com/r9r-dev/git-bob-playground/issues/193)
+  * [Implementing a generic Factory patters](https://github.com/r9r-dev/git-bob-playground/issues/198)
+  * [Generating a QR-Code](https://github.com/r9r-dev/git-bob-playground/issues/250)
+  * [Caching LLM prompt responses](https://github.com/r9r-dev/translate-pptx/issues/3)
+  * [Interactive bash inside a program](https://github.com/r9r-dev/git-bob-playground/issues/262)
 * Prompting
-  * [Prompting for SVG files](https://github.com/haesleinhuepf/git-bob-playground/issues/184)
+  * [Prompting for SVG files](https://github.com/r9r-dev/git-bob-playground/issues/184)
 * Continuous Integration and Deployment
-  * [Configuring Github workflows](https://github.com/haesleinhuepf/git-bob-playground/issues/146)
+  * [Configuring Github workflows](https://github.com/r9r-dev/git-bob-playground/issues/146)
   * [Configuring a Jupyter Book](https://github.com/NFDI4BIOIMAGE/training/issues/381)
 * Data & Code Management
-  * [Write a Data Management Plan (DMP)](https://github.com/haesleinhuepf/git-bob-playground/issues/180)
-  * [Research Data Management & Folder Structures](https://github.com/haesleinhuepf/git-bob-playground/issues/45)
-  * [Documenting source code](https://github.com/haesleinhuepf/git-bob/pull/29)
-  * [Determining licenses of dependencies](https://github.com/haesleinhuepf/git-bob-playground/issues/101)
-  * [Assisting scientific manuscript writing](https://github.com/haesleinhuepf/git-bob-manuscript/pull/9)
-  * [Deleting files](https://github.com/haesleinhuepf/git-bob/issues/412)
-  * [Converting tables to key-value pairs](https://github.com/haesleinhuepf/git-bob-playground/issues/103)
-  * [Exporting Google Scholar profile as bibtex](https://github.com/haesleinhuepf/git-bob-playground/issues/114)
-  * [Deciding for file formats: JSON versus YAML](https://github.com/haesleinhuepf/git-bob-playground/issues/117)
-  * [Generating Galaxy workflows](https://github.com/haesleinhuepf/git-bob-playground/issues/123)
-  * [Count citations of given DOIs](https://github.com/haesleinhuepf/git-bob-playground/issues/141)
-  * [Convert PDF documents to PNG images](https://github.com/haesleinhuepf/git-bob-playground/issues/179)
-  * [Convert PDF documents to animated GIFs](https://github.com/haesleinhuepf/git-bob-playground/issues/204)
-  * [Split PDFs](https://github.com/haesleinhuepf/git-bob-playground/issues/231)
-  * [Convert SVG files to PNG images](https://github.com/haesleinhuepf/git-bob-playground/issues/216)
-  * [Querying the arxiv](https://github.com/haesleinhuepf/git-bob-playground/issues/197)
-  * [Retrieving meta-data of arxiv articles](https://github.com/haesleinhuepf/git-bob-playground/issues/196)
+  * [Write a Data Management Plan (DMP)](https://github.com/r9r-dev/git-bob-playground/issues/180)
+  * [Research Data Management & Folder Structures](https://github.com/r9r-dev/git-bob-playground/issues/45)
+  * [Documenting source code](https://github.com/r9r-dev/git-bob/pull/29)
+  * [Determining licenses of dependencies](https://github.com/r9r-dev/git-bob-playground/issues/101)
+  * [Assisting scientific manuscript writing](https://github.com/r9r-dev/git-bob-manuscript/pull/9)
+  * [Deleting files](https://github.com/r9r-dev/git-bob/issues/412)
+  * [Converting tables to key-value pairs](https://github.com/r9r-dev/git-bob-playground/issues/103)
+  * [Exporting Google Scholar profile as bibtex](https://github.com/r9r-dev/git-bob-playground/issues/114)
+  * [Deciding for file formats: JSON versus YAML](https://github.com/r9r-dev/git-bob-playground/issues/117)
+  * [Generating Galaxy workflows](https://github.com/r9r-dev/git-bob-playground/issues/123)
+  * [Count citations of given DOIs](https://github.com/r9r-dev/git-bob-playground/issues/141)
+  * [Convert PDF documents to PNG images](https://github.com/r9r-dev/git-bob-playground/issues/179)
+  * [Convert PDF documents to animated GIFs](https://github.com/r9r-dev/git-bob-playground/issues/204)
+  * [Split PDFs](https://github.com/r9r-dev/git-bob-playground/issues/231)
+  * [Convert SVG files to PNG images](https://github.com/r9r-dev/git-bob-playground/issues/216)
+  * [Querying the arxiv](https://github.com/r9r-dev/git-bob-playground/issues/197)
+  * [Retrieving meta-data of arxiv articles](https://github.com/r9r-dev/git-bob-playground/issues/196)
   * [Counting PowerPoint slides in Zenodo records](https://github.com/NFDI4BIOIMAGE/training/issues/607)
   * [Search for duplicate entries in a yml file](https://github.com/NFDI4BIOIMAGE/training/issues/664)
-  * [Running multiple notebooks and trace failures](https://github.com/haesleinhuepf/git-bob-playground/issues/243)
+  * [Running multiple notebooks and trace failures](https://github.com/r9r-dev/git-bob-playground/issues/243)
 * Graphical User Interfaces
-  * [Interactive drawing on an ipcanvas](https://github.com/haesleinhuepf/git-bob-playground/issues/121) 
+  * [Interactive drawing on an ipcanvas](https://github.com/r9r-dev/git-bob-playground/issues/121) 
 * Statistics
   * [Filtering data and counting records](https://github.com/NFDI4BIOIMAGE/training/issues/299)
-  * [Selecting ranges of columns](https://github.com/haesleinhuepf/git-bob-playground/issues/47)
+  * [Selecting ranges of columns](https://github.com/r9r-dev/git-bob-playground/issues/47)
   * [Summarizing data and plotting](https://github.com/NFDI4BIOIMAGE/training/issues/250)
-  * [Writing text about well-known statistical methods](https://github.com/haesleinhuepf/git-bob-playground/issues/161)
-  * [Drawing a decision tree for statistial tests](https://github.com/haesleinhuepf/git-bob-playground/issues/223)
-  * [Converting Dice and Jaccard indices](https://github.com/haesleinhuepf/git-bob-playground/issues/248)
-  * [Generating personal profile data of random scientists](https://github.com/haesleinhuepf/git-bob-playground/issues/249)
+  * [Writing text about well-known statistical methods](https://github.com/r9r-dev/git-bob-playground/issues/161)
+  * [Drawing a decision tree for statistial tests](https://github.com/r9r-dev/git-bob-playground/issues/223)
+  * [Converting Dice and Jaccard indices](https://github.com/r9r-dev/git-bob-playground/issues/248)
+  * [Generating personal profile data of random scientists](https://github.com/r9r-dev/git-bob-playground/issues/249)
 * Plotting
-  * [Violing plots with simulated data](https://github.com/haesleinhuepf/git-bob-playground/issues/44)
-  * [UMAPs with simulated data](https://github.com/haesleinhuepf/git-bob-playground/issues/41)
-  * [Plotting a circle of triangles (in gitlab)](https://gitlab.com/haesleinhuepf/git-bob-gitlab-playground/-/issues/8)
-  * [Pairplots with simulated data](https://github.com/haesleinhuepf/git-bob-playground/issues/48)
-  * [Word clouds](https://github.com/haesleinhuepf/git-bob-playground/issues/76)
-  * [Plot simulated income data](https://github.com/haesleinhuepf/git-bob-playground/issues/195)
-  * [Ploting the Dunning Kruger effect](https://github.com/haesleinhuepf/git-bob-playground/issues/202)
-  * [Reproducing a plot](https://github.com/haesleinhuepf/git-bob-playground/issues/235)
-  * [Animated zooming into an image](https://github.com/haesleinhuepf/git-bob-playground/issues/237)
+  * [Violing plots with simulated data](https://github.com/r9r-dev/git-bob-playground/issues/44)
+  * [UMAPs with simulated data](https://github.com/r9r-dev/git-bob-playground/issues/41)
+  * [Plotting a circle of triangles (in gitlab)](https://gitlab.hellowork-group.com/r9r-dev/git-bob-gitlab-playground/-/issues/8)
+  * [Pairplots with simulated data](https://github.com/r9r-dev/git-bob-playground/issues/48)
+  * [Word clouds](https://github.com/r9r-dev/git-bob-playground/issues/76)
+  * [Plot simulated income data](https://github.com/r9r-dev/git-bob-playground/issues/195)
+  * [Ploting the Dunning Kruger effect](https://github.com/r9r-dev/git-bob-playground/issues/202)
+  * [Reproducing a plot](https://github.com/r9r-dev/git-bob-playground/issues/235)
+  * [Animated zooming into an image](https://github.com/r9r-dev/git-bob-playground/issues/237)
 * Science Communication
-  * [Making slides for Deep Learning training](https://github.com/haesleinhuepf/git-bob-playground/issues/97)
-  * [Making slides for Research Data Management training](https://github.com/haesleinhuepf/git-bob-playground/issues/96)
-  * [Visualizing how Fourier-Transform works](https://github.com/haesleinhuepf/git-bob-playground/issues/22)
-  * [Making Jupyter Notebooks for training](https://github.com/haesleinhuepf/git-bob-playground/issues/92)
-  * [Making slides about text](https://github.com/haesleinhuepf/git-bob-playground/issues/98)
-  * [Visualizing processes using CPUs and GPUs](https://github.com/haesleinhuepf/git-bob-playground/issues/192)
+  * [Making slides for Deep Learning training](https://github.com/r9r-dev/git-bob-playground/issues/97)
+  * [Making slides for Research Data Management training](https://github.com/r9r-dev/git-bob-playground/issues/96)
+  * [Visualizing how Fourier-Transform works](https://github.com/r9r-dev/git-bob-playground/issues/22)
+  * [Making Jupyter Notebooks for training](https://github.com/r9r-dev/git-bob-playground/issues/92)
+  * [Making slides about text](https://github.com/r9r-dev/git-bob-playground/issues/98)
+  * [Visualizing processes using CPUs and GPUs](https://github.com/r9r-dev/git-bob-playground/issues/192)
 * Fun
-  * [Playing Tic-Tac-Toe](https://github.com/haesleinhuepf/git-bob-playground/issues/91)
-  * [Story Telling for kids](https://github.com/haesleinhuepf/git-bob-playground/issues/82)
-  * [PowerPoint Karaoke](https://github.com/haesleinhuepf/git-bob-playground/issues/99)
-  * [Solving Advent of Code 2024 puzzles](https://github.com/haesleinhuepf/git-bob-advent-of-code)
-  * [Drawing a Christmas tree as SVG](https://github.com/haesleinhuepf/git-bob-playground/issues/188)
-  * [Asking for the Meaning of Life](https://github.com/haesleinhuepf/git-bob-playground/issues/234)
-  * [Creating audio files](https://github.com/haesleinhuepf/git-bob-playground/issues/254) (also in [German](https://github.com/haesleinhuepf/git-bob-playground/issues/258) and [French](https://github.com/haesleinhuepf/git-bob-playground/issues/259))
+  * [Playing Tic-Tac-Toe](https://github.com/r9r-dev/git-bob-playground/issues/91)
+  * [Story Telling for kids](https://github.com/r9r-dev/git-bob-playground/issues/82)
+  * [PowerPoint Karaoke](https://github.com/r9r-dev/git-bob-playground/issues/99)
+  * [Solving Advent of Code 2024 puzzles](https://github.com/r9r-dev/git-bob-advent-of-code)
+  * [Drawing a Christmas tree as SVG](https://github.com/r9r-dev/git-bob-playground/issues/188)
+  * [Asking for the Meaning of Life](https://github.com/r9r-dev/git-bob-playground/issues/234)
+  * [Creating audio files](https://github.com/r9r-dev/git-bob-playground/issues/254) (also in [German](https://github.com/r9r-dev/git-bob-playground/issues/258) and [French](https://github.com/r9r-dev/git-bob-playground/issues/259))
 * `git-bob` refusing to help
-  * [Changing the working directory of the parent shell](https://github.com/haesleinhuepf/git-bob-playground/issues/266) 
-  * [Solving the Halting Problem](https://github.com/haesleinhuepf/git-bob-playground/issues/156) [[2nd attempt](https://github.com/haesleinhuepf/git-bob-playground/issues/157)]
+  * [Changing the working directory of the parent shell](https://github.com/r9r-dev/git-bob-playground/issues/266) 
+  * [Solving the Halting Problem](https://github.com/r9r-dev/git-bob-playground/issues/156) [[2nd attempt](https://github.com/r9r-dev/git-bob-playground/issues/157)]
 * Things that didn't work well
-  * [How to use aider from python](https://github.com/haesleinhuepf/git-bob/issues/437#issuecomment-2539865080)
-  * [How to use the atproto API](https://github.com/haesleinhuepf/git-bob-playground/issues/136)
-  * [Executing code in a sandbox](https://github.com/haesleinhuepf/git-bob-playground/issues/177)
-  * [Summarize code in a repository](https://github.com/haesleinhuepf/git-bob/issues/444)
-  * [Drawing multiple trees in a SVG file](https://github.com/haesleinhuepf/git-bob-playground/issues/187)
-  * [Drawing relationships between agents in a multi-agent system](https://github.com/haesleinhuepf/git-bob-playground/issues/199)
-  * [Complex code refactoring](https://github.com/haesleinhuepf/git-bob/issues/451)
+  * [How to use aider from python](https://github.com/r9r-dev/git-bob/issues/437#issuecomment-2539865080)
+  * [How to use the atproto API](https://github.com/r9r-dev/git-bob-playground/issues/136)
+  * [Executing code in a sandbox](https://github.com/r9r-dev/git-bob-playground/issues/177)
+  * [Summarize code in a repository](https://github.com/r9r-dev/git-bob/issues/444)
+  * [Drawing multiple trees in a SVG file](https://github.com/r9r-dev/git-bob-playground/issues/187)
+  * [Drawing relationships between agents in a multi-agent system](https://github.com/r9r-dev/git-bob-playground/issues/199)
+  * [Complex code refactoring](https://github.com/r9r-dev/git-bob/issues/451)
   * [Debugging OpenCL error](https://github.com/clEsperanto/pyclesperanto_prototype/issues/344)
-  * [Signing PDFs with visual signature AND cryptographic signing](https://github.com/haesleinhuepf/git-bob-playground/issues/244)
-  * [Extending cell types in Jupyter notebooks](https://github.com/haesleinhuepf/git-bob-playground/issues/270)
+  * [Signing PDFs with visual signature AND cryptographic signing](https://github.com/r9r-dev/git-bob-playground/issues/244)
+  * [Extending cell types in Jupyter notebooks](https://github.com/r9r-dev/git-bob-playground/issues/270)
 
 ## Installation for development
 
 ```
-git clone https://github.com/haesleinhuepf/git-bob.git
+git clone https://github.com/r9r-dev/git-bob.git
 cd git-bob
 ```
 
@@ -290,7 +290,7 @@ Available actions:
 At the moment, these limitations can be observed:
 * `git-bob` was tested for Python projects mostly. It seems to be able to process Java and C++ as well.
 * It can only execute code in Jupyter Notebooks. 
-* It sometimes hallucinates, especially in code reviews. E.g. it [claimed](https://github.com/haesleinhuepf/git-bob/pull/70) to have tested code, which was certainly not true.
+* It sometimes hallucinates, especially in code reviews. E.g. it [claimed](https://github.com/r9r-dev/git-bob/pull/70) to have tested code, which was certainly not true.
 * It cannot solve issues where changing long files is required, as the output of the LLMs is limited by a maximum number of tokens (e.g. 16k for `gpt-4o-2024-08-06`). When using OpenAI's models it combines output of multiple requests to a maximum file length about 64k tokens. It may then miss some spaces or a line break where responses were stitched. 
   When using GitHub models, the maximum file length is 4k tokens. When using Anthropic's Claude, the maximum file length is 8k tokens.
 * When changing multiple files, it may introduce conflicts between the files, as it does not know about the changed contents of the other files.
@@ -307,7 +307,7 @@ At the moment, these limitations can be observed:
 
 git-bob can be extended in multiple ways. 
 All you need to do is to set up small python library which implements specific functions and exposes them using Pythons plugin system. 
-You find an example implementation of the extensions described below in [this respository](https://github.com/haesleinhuepf/git-bob-plugin-example).
+You find an example implementation of the extensions described below in [this respository](https://github.com/r9r-dev/git-bob-plugin-example).
 
 ### Adding new trigger words
 
@@ -397,7 +397,7 @@ There are similar projects out there
 ## Contributing
 
 Feedback and contributions are welcome! Just open an issue and let's discuss before you send a pull request. 
-A [human](https://haesleinhuepf.github.io) will respond and comment on your ideas!
+A [human](https://r9r-dev.github.io) will respond and comment on your ideas!
 
 ## Citation
 

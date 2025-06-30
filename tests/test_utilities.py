@@ -74,15 +74,15 @@ def test_modify_discussion():
 
     from git_bob._utilities import modify_discussion
     discussion = """
-    Check this issue https://github.com/haesleinhuepf/git-bob/pull/1 ,
-    this PR https://github.com/haesleinhuepf/git-bob/pull/3 ,
-    this file https://github.com/haesleinhuepf/bia-bob/blob/main/setup.cfg and
-    this website https://haesleinhuepf.github.io/ 
+    Check this issue https://github.com/r9r-dev/git-bob/pull/1 ,
+    this PR https://github.com/r9r-dev/git-bob/pull/3 ,
+    this file https://github.com/r9r-dev/bia-bob/blob/main/setup.cfg and
+    this website https://r9r-dev.github.io/ 
     """
     modified_discussion = modify_discussion(discussion)
     assert "Hi, this is a test!" in modified_discussion
     assert "I have a question. What" in modified_discussion
-    assert "Bug Tracker = https://github.com/haesleinhuepf/bia-bob/issues" in modified_discussion
+    assert "Bug Tracker = https://github.com/r9r-dev/bia-bob/issues" in modified_discussion
     assert "Dr. rer. medic. Robert Haase" not in modified_discussion
 
 
@@ -124,17 +124,17 @@ pull_request_response = send_pull_request(repository, branch, f"Add {filename}",
 print("Done.", pull_request_response)
 ```
 
-Just tagging strangers: @anyoneelse and friends: @haesleinhuepf
+Just tagging strangers: @anyoneelse and friends: @r9r-dev
 
 ```
     """
     from git_bob._utilities import clean_output
-    result = clean_output("haesleinhuepf/git-bob", test)
+    result = clean_output("r9r-dev/git-bob", test)
 
     print(result)
 
     assert "```markdown" not in result
-    assert "@haesleinhuepf" in result # tags to friends are kept
+    assert "@r9r-dev" in result # tags to friends are kept
     assert "@decorator" in result # decorators in code are kept
     assert "@anyoneelse" not in result # tags to strangers are removed
 
@@ -149,7 +149,7 @@ def test_clean_output2():
     reference = """blabla @ PETER"""
 
     from git_bob._utilities import clean_output
-    result = clean_output("haesleinhuepf/git-bob", test)
+    result = clean_output("r9r-dev/git-bob", test)
 
     assert result == reference
 
@@ -168,7 +168,7 @@ def test_file_list_from_commit_message_dict_github():
     Config.running_in_gitlab_ci = False
     Config.running_in_github_ci = True
     Config.git_server_url = "https://github.com/"
-    repository = "haesleinhuepf/git-bob"
+    repository = "r9r-dev/git-bob"
     branch_name = "test"
     commit_message_dict = {"new_image.png":"added image",
                            "text_file.txt":"modified text",
@@ -177,16 +177,16 @@ def test_file_list_from_commit_message_dict_github():
     result = file_list_from_commit_message_dict(repository, branch_name, commit_message_dict)
 
     assert len(result) == 3
-    assert "![new_image.png](https://github.com/haesleinhuepf/git-bob/blob/test/new_image.png?raw=true)" in result
-    assert "[text_file.txt](https://github.com/haesleinhuepf/git-bob/blob/test/text_file.txt)" in result
-    assert "![playground/plot.jpg](https://github.com/haesleinhuepf/git-bob/blob/test/playground/plot.jpg?raw=true)" in result
+    assert "![new_image.png](https://github.com/r9r-dev/git-bob/blob/test/new_image.png?raw=true)" in result
+    assert "[text_file.txt](https://github.com/r9r-dev/git-bob/blob/test/text_file.txt)" in result
+    assert "![playground/plot.jpg](https://github.com/r9r-dev/git-bob/blob/test/playground/plot.jpg?raw=true)" in result
 
 def test_file_list_from_commit_message_dict_gitlab():
     from git_bob._utilities import file_list_from_commit_message_dict, Config
     Config.running_in_gitlab_ci = True
     Config.running_in_github_ci = False
-    Config.git_server_url = "https://gitlab.com/"
-    repository = "haesleinhuepf/git-bob"
+    Config.git_server_url = "https://gitlab.hellowork-group.com/"
+    repository = "r9r-dev/git-bob"
     branch_name = "test"
     commit_message_dict = {"new_image.png":"added image",
                            "text_file.txt":"modified text",
@@ -195,9 +195,9 @@ def test_file_list_from_commit_message_dict_gitlab():
     result = file_list_from_commit_message_dict(repository, branch_name, commit_message_dict)
 
     assert len(result) == 3
-    assert "![new_image.png](https://gitlab.com/haesleinhuepf/git-bob/-/raw/test/new_image.png)" in result
-    assert "[text_file.txt](https://gitlab.com/haesleinhuepf/git-bob/-/blob/test/text_file.txt)" in result
-    assert "![playground/plot.jpg](https://gitlab.com/haesleinhuepf/git-bob/-/raw/test/playground/plot.jpg)" in result
+    assert "![new_image.png](https://gitlab.hellowork-group.com/r9r-dev/git-bob/-/raw/test/new_image.png)" in result
+    assert "[text_file.txt](https://gitlab.hellowork-group.com/r9r-dev/git-bob/-/blob/test/text_file.txt)" in result
+    assert "![playground/plot.jpg](https://gitlab.hellowork-group.com/r9r-dev/git-bob/-/raw/test/playground/plot.jpg)" in result
 
 
 def test_ensure_images_shown():

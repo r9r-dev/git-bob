@@ -94,7 +94,7 @@ def command_line_interface():
         Config.is_pull_request = False
     issue = int(issue_str) if len(sys.argv) > 3 else None
     if issue is None:
-        # todo: remove this and fail here instead https://github.com/haesleinhuepf/git-bob/issues/385
+        # todo: remove this and fail here instead https://github.com/r9r-dev/git-bob/issues/385
         issue = Config.git_utilities.get_most_recently_commented_issue(repository)
 
     Config.repository = repository

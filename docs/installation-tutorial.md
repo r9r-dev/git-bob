@@ -44,7 +44,7 @@ https://github.com/<GITHUB ORGANIZATION>/<REPOSITORY>/settings/secrets/actions
 
 In our case, we navigate to `stackview`:
 ```
-https://github.com/haesleinhuepf/stackview/settings/secrets/actions
+https://github.com/r9r-dev/stackview/settings/secrets/actions
 ```
 
 Click on `New repository secret` 
@@ -87,4 +87,4 @@ If the installation works, another box will appear after a minute with a review 
 
 After merging this pull-request, you can continue asking `git-bob comment` in all pull-requests and issues in the repository.
 
-In case of any issues while installing, please mention `@haesleinhuepf`.
+In case of any issues while installing, please mention `@r9r-dev`.

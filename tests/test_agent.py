@@ -9,7 +9,7 @@ def test_agent_comment_on_issue():
     from git_bob._ai_github_utilities import comment_on_issue
     from git_bob._endpoints import prompt_azure
 
-    Config.repository  = "haesleinhuepf/git-bob"
+    Config.repository  = "r9r-dev/git-bob"
     Config.issue = create_issue(Config.repository, "for-loops", "git-bob answer with python code for demonstrating a for-loop that outputs numbers between 0 and 10.")
 
     os.environ["GIT_BOB_LLM_NAME"] = "gh_models:gpt-4o-mini"
@@ -43,7 +43,7 @@ def test_agent_try_solving_issue():
     from git_bob._ai_github_utilities import try_to_solve_github_issue
     from git_bob._endpoints import prompt_azure
 
-    Config.repository  = "haesleinhuepf/git-bob"
+    Config.repository  = "r9r-dev/git-bob"
     Config.issue = create_issue(Config.repository, "for-loops", "git-bob try python code for demonstrating a for-loop that outputs numbers between 0 and 10.")
 
     os.environ["GIT_BOB_LLM_NAME"] = "gh_models:gpt-4o-mini"
@@ -77,7 +77,7 @@ def test_agent_solving_issue():
     from git_bob._ai_github_utilities import solve_github_issue, review_pull_request
     from git_bob._endpoints import prompt_azure
 
-    Config.repository  = "haesleinhuepf/git-bob"
+    Config.repository  = "r9r-dev/git-bob"
     Config.issue = create_issue(Config.repository, "for-loops", "git-bob implement python code in a new 'for_loop.py' that demonstrates a for-loop that outputs numbers between 0 and 10.")
 
     os.environ["GIT_BOB_LLM_NAME"] = "gh_models:gpt-4o-mini"

@@ -44,7 +44,7 @@ respond:
     GITLAB_API_KEY: "$GITLAB_API_TOKEN"
     E_INFRA_CZ_API_KEY: "$E_INFRA_CZ_API_KEY"
     GITLAB_PIPELINE_ID: "$CI_PIPELINE_ID"
-    GIT_SERVER_URL: "https://gitlab.com/"
+    GIT_SERVER_URL: "https://gitlab.hellowork-group.com/"
     TWINE_USERNAME: "$TWINE_USERNAME"
     TWINE_PASSWORD: "$TWINE_PASSWORD"
     SYSTEM_MESSAGE: |
